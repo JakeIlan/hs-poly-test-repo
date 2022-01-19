@@ -13,7 +13,7 @@ mySin x = sinCalc x 0
     where
         sinCalc :: Double -> Double -> Double
         sinCalc x n
-            | n == 20       = (-1)**n * x**(2*n + 1) / factorial (2*n + 1)
+            | n == 120       = (-1)**n * x**(2*n + 1) / factorial (2*n + 1)
             | otherwise     = (-1)**n * x**(2*n + 1) / factorial (2*n + 1) + sinCalc x (n + 1)
 
 -- косинус числа (формула Тейлора)
@@ -22,7 +22,7 @@ myCos x = cosCalc x 0
     where
         cosCalc :: Double -> Double -> Double
         cosCalc x n
-            | n == 19       = (-1)**n * x**(2*n) / factorial (2*n)
+            | n == 120       = (-1)**n * x**(2*n) / factorial (2*n)
             | otherwise     = (-1)**n * x**(2*n) / factorial (2*n) + cosCalc x (n + 1)
 
 -- наибольший общий делитель двух чисел
@@ -73,9 +73,9 @@ shapeArea points =
     let
         xs = map fst points
         ys = map snd points
-        a = [x * y | x <- init xs, y <- tail ys]
+        a = zipWith (*) (init xs) (tail ys)
         a' = sum a + last xs * head ys
-        b = [x * y | x <- tail xs, y <- init ys]
+        b = zipWith (*) (tail xs) (init ys)
         b' = sum b + head xs * last ys
     in
         abs(a' - b') / 2

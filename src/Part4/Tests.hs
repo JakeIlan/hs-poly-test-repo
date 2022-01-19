@@ -24,7 +24,7 @@ unit_eq =
         assertBool "" ((REmpty :< 1 :< 2 :< 3 :< 4 :< 5) /= REmpty )
 
 prop_eq lst =
-    (listToRlist lst) == (listToRlist lst)
+    listToRlist lst == (listToRlist lst)
         where types = (lst :: [Int])
 
 unit_monoid =
