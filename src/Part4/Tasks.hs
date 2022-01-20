@@ -43,7 +43,16 @@ instance Semigroup (ReverseList a) where
 instance Monoid (ReverseList a) where
     mempty = REmpty
     mappend = (<>)
-    mconcat = foldr mappend mempty 
+    mconcat = foldr mappend mempty
 instance Functor ReverseList where
+    fmap f REmpty = REmpty
+    fmap f (init :< last) = fmap f init :< f last
 instance Applicative ReverseList where
+    pure a = REmpty :< a
+    (<*>) lst REmpty = REmpty
+    (<*>) REmpty lst = REmpty
+    (<*>) (init1 :< last1) lst2 = (init1 <*> lst2) <> fmap last1 lst2
 instance Monad ReverseList where
+    return a = REmpty :< a
+    (>>=) REmpty f = REmpty
+    (>>=) (init :< last) f = (init >>= f) <> f last
